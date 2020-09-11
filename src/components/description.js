@@ -1,31 +1,31 @@
 import React from 'react';
 
-const Description = ({ index, product }) => {
+const Description = ({  description, firstName,address }) => {
    
-    return (
-        <div>
+        return (
             <div>
-                {" "}
-          Выбран пользователь <b>{product[index].firstName}</b>
+                <div>
+                    Выбран пользователь <b>{firstName}</b>
+                </div>
+                <div>
+                    Описание:
+          <textarea>{description}</textarea>
+                </div>
+                <div>
+                    Адрес проживания: <b>{address.streetAddress}</b>
+                </div>
+                <div>
+                    Город: <b>{address.city}</b>
+                </div>
+                <div>
+                    Провинция/штат: <b>{address.state}</b>
+                </div>
+                <div>
+                    Индекс: <b>{address.zip}</b>
+                </div>
             </div>
-            <div>
-                Описание:
-          <textarea>{product[index].description}</textarea>
-            </div>
-            <div>
-                Адрес проживания: <b>{product[index].address.streetAddress}</b>
-            </div>
-            <div>
-                Город: <b>{product[index].address.city}</b>
-            </div>
-            <div>
-                Провинция/штат: <b>{product[index].address.state}</b>
-            </div>
-            <div>
-                Индекс: <b>{product[index].address.zip}</b>
-            </div>
-        </div>
-    );
+        );
+    
 };
 
 export default Description;
