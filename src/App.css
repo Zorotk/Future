@@ -3,26 +3,33 @@
   font-family: "Exo 2", sans-serif;
 }
 
-.app{
+.app {
   display: flex;
   justify-content: center;
   align-items: center;
- 
 }
 table {
-    border-collapse: collapse;
+  border-collapse: collapse;
+}
+.inputForm{
+  display: flex;
+}
+table,
+th,
+td {
+  padding:5px;
+  border: 1px solid black;
+}
+tbody>tr:nth-child(odd) {
+  background-color: rgb(216, 214, 214);
 }
 
-table, th, td {
-    border: 1px solid black;
-}
-
-.page{
+.page {
   margin: 10px;
   font-size: 16px;
-  transition:all 0.3s ease-in-out;
+  transition: all 0.3s ease-in;
 }
-.active{
+.active {
   font-size: 21px;
   background: gainsboro;
 }
