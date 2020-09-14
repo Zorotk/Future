@@ -3,13 +3,20 @@ import FormHandler from "./formHandler";
 import Description from "./description";
 const Table = () => {
   const [product, setproduct] = useState([]);
-  const [loading, setloading] = useState(true);
+  const [loading, setloading] = useState(false);
+const [preLoading, setpreLoading] = useState("choice");
+
+
   const [error, seterror] = useState(false);
   const [sortfild, setsortfild] = useState();
   const [sortorder, setsortorder] = useState(false);
   const [activePage, setactivePage] = useState(1);
   const [description, setdescription] = useState();
-  const [formInput, setformInput] = useState();
+  const [formInput, setformInput] = useState(false);
+  const [bigDate, setbigDate] = useState(false)
+  
+  
+
 
   const [input, setinput] = useState("");
   const [searchText, setsearchText] = useState("");
@@ -22,21 +29,30 @@ const Table = () => {
   );
   const page = new Array(Math.ceil(data.length / 50)).fill(0);
   useEffect(() => {
-    fetch(
-      "http://www.filltext.com/?rows=1000&id={number|1000}&firstName={firstName}&delay=3&lastName={lastName}&email={email}&phone={phone|(xxx)xxx-xx-xx}&address={addressObject}&description={lorem|32}"
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        setproduct(data);
-        setloading(false);
-      })
-      .catch(() => seterror(true));
-  }, []);
+    if (bigDate) {
+          fetch(
+            `${
+              bigDate==="big"
+                ? "http://www.filltext.com/?rows=32&id={number|1000}&firstName={firstName}&lastName={lastName}&email={email}&phone={phone|(xxx)xxx-xx-xx}&address={addressObject}&description={lorem|32}"
+                : "http://www.filltext.com/?rows=1000&id={number|1000}&firstName={firstName}&delay=3&lastName={lastName}&email={email}&phone={phone|(xxx)xxx-xx-xx}&address={addressObject}&description={lorem|32}"
+            }`
+          ).then(setloading(true))
+            .then((response) => response.json())
+            .then((data) => {
+              setproduct(data);
+              setpreLoading(false);
+              setloading(false);
+            })
+            .catch(() => seterror(true));
+    }
+  
+  
+  }, [bigDate]);
   const findProduct = (e) => {
     e.preventDefault();
     setsearchText(input);
     setactivePage(1);
-    setdescription();
+   
   };
   const addProduct = (e) => {
     e.preventDefault();
@@ -73,10 +89,23 @@ const Table = () => {
       ...product,
     ]);
   };
-
-  if (loading) {
-    return <div>...loading</div>;
+  if (preLoading === "choice" && !loading) {
+    return (
+      <div>
+        <button onClick={() => setbigDate("big")}>
+          набор данных: маленький{" "}
+        </button>
+        <button onClick={() => setbigDate("sm")}>набор данных: большой </button>
+      </div>
+    );
   }
+    if (loading) {
+      return (
+        
+          <div>...loading</div>
+       
+      );
+    }
   return (
     <div>
       <form>
