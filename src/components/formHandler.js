@@ -10,14 +10,14 @@ const arrNames = [
   "city",
   "state",
   "zip",
-  "description"
+  "description",
 ];
 const FormHandler = ({ onAdd }) => {
   const [form, setform] = useState({});
   const [validForm, setvalidForm] = useState(false);
   const handleClick = () => {
-      onAdd(form);
-      setform({})
+    onAdd(form);
+    setform({});
   };
   useEffect(() => {
     setvalidForm(
@@ -27,7 +27,9 @@ const FormHandler = ({ onAdd }) => {
   return (
     <div>
       {arrNames.map((name) => (
-        <input className='inputForm' key={name}
+        <input
+          className="inputForm"
+          key={name}
           value={form[name] || ""}
           placeholder={name}
           onChange={(e) =>
